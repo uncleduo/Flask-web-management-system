@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}我的信息{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    {% if user.name %}
+        <h1>{{ user.name }}</h1>
+    {% else %}
+        <h1>尚未填写姓名</h1>
+    {% endif %}
+</div>
+<div>
+    <div style="height:2px"></div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes></ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}" style="color:#337AB7">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if user.major %}
+        <h3>科研方向:{{ user.major }}</h3>
+    {% else %}
+        <h3>尚未填写科研方向</h3>
+    {% endif %}
+    {% if user.info %}
+        <h3>个人信息:{{ user.info }}</h3>
+    {% else %}
+        <h3>尚未填写个人信息</h3>
+    {% endif %}
+    {% if user.email %}
+        <h3>邮箱:{{ user.email }}</h3>
+    {% else %}
+        <h3>尚未填写邮箱</h3>
+    {% endif %}
+    {% if user.telephone %}
+        <h3>手机号码:{{ user.telephone }}</h3>
+    {% else %}
+        <h3>尚未填写手机号码</h3>
+    {% endif %}
+    {% if user.member_since %}
+        <h3>注册时间:{{ user.member_since }}</h3>
+    {% else %}
+        <h3>注册时间找不到了(O.O)</h3>
+    {% endif %}
+    {% if user == current_user %}
+    {% if user.last_seen %}
+        <h3 >上次登录时间:{{ user.last_seen }}</h3>
+    {% else %}
+        <h3>上次登录时间找不到了QAQ</h3>
+    {% endif %}
+    {% if user.id %}
+        <h3>您是本系统第{{ user.id }}位用户</h3>
+    {% else %}
+        <h3>不可能,id是主键,你怎么会没有id!?</h3>
+    {% endif %}
+    <a class="btn btn-primary" href="{{ url_for('teacher.edit_info') }}">
+        编辑信息
+    </a>
+    {% else %}
+    <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}">
+        返回主页
+    </a>
+    {% endif %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "bootstrap/base.html" %}
+<meta charset="UTF-8">
+
+
+{% block title %}软件工程课程管理系统{% endblock %}
+
+{% block body %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation" >
+    <div class="container" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/" >软件工程课程管理系统 </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                    {% if current_user.role %}
+                    <li>
+                        <a href="{{ url_for('teacher.teacherInfo', id=current_user.id) }}">我的信息</a>
+                    </li>
+                    {% else %}
+                        {% if current_user.groupID %}
+                        <li>
+                            <a href="{{ url_for('group.groupInfo', groupID=current_user.groupID) }}">我的小组</a>
+                        </li>
+                        {% else %}
+                        {% endif %}
+                    <li>
+                        <a href="{{ url_for('student.studentInfo', id=current_user.id) }}">我的信息</a>
+                    </li>
+                    {% endif %}
+                <li><a href="{{ url_for('student.logout') }}">登出</a></li>
+                {% else %}
+                <li><a href="{{ url_for('student.login') }}">登录</a></li>
+                <li><a href="{{ url_for('student.register') }}">注册</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block page_content %}
+        <div class="page-header">
+            <h1>你好</h1>
+        </div>
+    {% endblock %}
+</div>
+{% endblock %}
+
+<footer style="position: fixed; bottom: 0;width: 100%;">
+    <div class="span7 text-center">&CopyRight - 电子科技大学 - 软工小组 - 耿佳宁 - 李静文 - 胡荣 - 花春兵 - 王一多<br><br></div>
+</footer>
+{% endblock %}

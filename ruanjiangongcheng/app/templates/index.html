@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="page-header">
+{% if current_user.is_authenticated %}
+          {% if current_user.role %}
+      <h1>{{ current_user.username }}老师您好,欢迎来到软件工程课程管理系统</h1>
+      {% else %}
+      <h1>{{ current_user.username }}同学您好,欢迎来到软件工程课程管理系统</h1>
+      {% endif %}
+      <h1></h1>
+{% else %}
+      <h1>欢迎来到软件工程课程管理系统,请先登录</h1>
+{% endif %}
+  </div>
+
+  <div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes></ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}" style="color:#337AB7">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
+
+      {% if current_user.is_authenticated %}
+      {% if current_user.role %}
+      <h3>这里是老师主页,你可以</h3>
+      <div style="height:10px"></div>
+      <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.myStudent') }}" style="margin:0px 10px 0px 0px;">
+        查看我的学生
+      </a>
+      <a class="btn btn-primary btn-lg" href="{{ url_for('group.groupList',teacherID=current_user.id) }}" style="margin:0px 10px 0px 0px;">
+        查看班级分组</a>
+      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
+        管理通知公告</a>
+      {% else %}
+      {% if current_user.teacherID %}
+      <h3>这里是学生主页,你可以</h3>
+      <div style="height:10px"></div>
+      {% if current_user.groupID %}
+      {% else %}
+      <a class="btn btn-primary btn-lg" href="{{ url_for('group.createGroup') }}" style="margin:0px 10px 0px 0px;">
+        创建一个小组</a>
+      {% endif %}
+
+      <a class="btn btn-primary btn-lg" href="{{ url_for('group.groupList',teacherID=current_user.teacherID) }}" style="margin:0px 10px 0px 0px;">
+        查看学生分组</a>
+      <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.teacherInfo',id=current_user.teacherID) }}" style="margin:0px 10px 0px 0px;">
+        查看我的老师</a>
+
+      {% else %}
+      <h3>这里是学生主页<br>你尚未选择老师，你可以点击下方选择老师，或者随便逛逛，也可以不选择老师（挂科不负责）</h3>
+      <a class="btn btn-primary btn-lg" href="{{ url_for('student.chooseTeacher') }}">
+        选择老师
+      </a>
+      {% endif %}
+      {% endif %}
+      {% else %}
+      {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

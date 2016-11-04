@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}编辑资料{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="page-header">
+        <h1>编辑资料</h1>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes></ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}" style="color:#337AB7">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="col-md-4">
+        {{ wtf.quick_form(form) }}
+        <br>
+        <br>
+        <!--<div class="span7 text-center"><h4>邮箱与学号必须填写<br>其他选项不填写则不改变</h4></div>-->
+    </div>
+
+</div>
+{% endblock %}
+

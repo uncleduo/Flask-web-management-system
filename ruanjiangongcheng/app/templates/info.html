@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}我的信息{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    {% if user.name %}
+        <h1>姓名:{{ user.name }}</h1>
+    {% else %}
+        <h1>尚未填写姓名</h1>
+    {% endif %}
+</div>
+<div>
+    {% if user.major %}
+        <h3>专业:{{ user.major }}</h3>
+    {% else %}
+        <h3>尚未填写专业</h3>
+    {% endif %}
+    {% if user.student_id %}
+        <h3>学号:{{ user.studentID }}</h3>
+    {% else %}
+        <h3>尚未填写学号</h3>
+    {% endif %}
+    {% if user.introduce %}
+        <h3>个人信息:{{ user.info }}</h3>
+    {% else %}
+        <h3>尚未填写个人信息</h3>
+    {% endif %}
+    {% if user.email %}
+        <h3>邮箱:{{ user.email }}</h3>
+    {% else %}
+        <h3>尚未填写邮箱</h3>
+    {% endif %}
+    {% if user.telephone %}
+        <h3>手机号码:{{ user.telephone }}</h3>
+    {% else %}
+        <h3>尚未填写手机号码</h3>
+    {% endif %}
+
+    {% if user.id %}
+        <h3>您是本系统第{{ user.id }}位用户</h3>
+    {% else %}
+        <h3>不可能,id是主键,你怎么会没有id!?</h3>
+    {% endif %}
+</div>
+
+<a class="bth bth-default" href="{{ url_for('edit_info', id=current_user.id) }}">
+    编辑资料
+</a>
+
+{% endblock %}

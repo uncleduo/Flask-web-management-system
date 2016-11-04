@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}创建小组{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>创建小组</h1>
+    </div>
+    <div>
+        <h3 style="color:#337AB7">创建完成后你便是组长，请跟小伙伴商量之后再创建，乱点会挨打的</h3>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes></ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}" style="color:#337AB7">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="col-md-4">
+        {{ wtf.quick_form(form) }}
+        <a class="btn btn-default" href="{{ url_for('main.index') }}" style="margin:10px 10px 0px 0px;">
+        返回主页</a>
+    </div>
+</div>
+{% endblock %}
