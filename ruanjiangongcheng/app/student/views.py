@@ -86,7 +86,9 @@ def chooseTeacher():
 def studentInfo(id):
     user = Student.query.filter_by(id=id).first()
     groupID = user.groupID
-    group_leader = Group.query.filter_by(groupID=groupID).first().group_leader
+    group_leader = None
+    if groupID:
+        group_leader = Group.query.filter_by(groupID=groupID).first().group_leader
     if user is None:
         abort(404)
     return render_template('studentInfo.html', user=user, group_leader=group_leader)

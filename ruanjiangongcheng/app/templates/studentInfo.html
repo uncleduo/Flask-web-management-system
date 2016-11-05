@@ -104,8 +104,10 @@
     <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}" style="margin:0px 10px 20px 0px;">
         返回主页
     </a>
+    {% if user.groupID %}
     <a class="btn btn-default btn-lg" href="{{ url_for('group.groupInfo',groupID=user.groupID) }}" style="margin:0px 10px 20px 0px;">
         返回所在小组</a>
+    {% endif %}
 </div>
 
 
