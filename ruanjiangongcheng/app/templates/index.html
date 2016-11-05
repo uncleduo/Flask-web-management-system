@@ -40,6 +40,8 @@
       <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.createNotice') }}" style="margin:0px 10px 0px 0px;">
         管理通知公告</a>
       <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
+        查看学生考勤</a>
+      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
         管理课程文档</a>
       {% else %}
       {% if current_user.teacherID %}
@@ -68,6 +70,7 @@
       {% endif %}
       {% else %}
       {% endif %}
+      <h4><br><br><br>版本号:0.1.1v<br>预计下次更新:10月6日。<br>下次更新功能:增加考勤系统，修改密码功能，增加浏览器兼容。<br>如发现bug,系统宕机可联系QQ845287343,欢迎提出批评意见。</h4>
   </div>
 
 </div>
