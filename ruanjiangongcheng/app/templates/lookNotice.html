@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}发布通知{% endblock %}
+
+{% block content %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{{ moment.lang('zh_cn') }}
+{% endblock %}
+
+<div class="container">
+    <div class="page-header">
+        <h2>查看通知</h2>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes></ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}" style="color:#337AB7">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    <ul class="notices">
+        {% for notice in notices %}
+        <li class="notice">
+            <div class="profile-thumbnail"></div>
+            <div class="notice-date"><h3>{{ teacher_name }}  发布时间:{{ moment(notice.timestamp).fromNow()  }}</h3></div>
+            <div class="notice-body" style="font-size:16px;">{{ notice.body }}</div>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}

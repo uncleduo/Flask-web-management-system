@@ -2,8 +2,8 @@
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from . import student
-from ..models import Student
-from .forms import LoginForm, RegistrationForm, EditInfoForm
+from ..models import Student, Notice, Group
+from .forms import LoginForm, RegistrationForm, EditInfoForm, ScoreForm
 from app import db
 
 @student.route('/secret')
@@ -15,6 +15,32 @@ def secret():
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
+
+@student.route('/group_score/<id>', methods=['GET', 'POST'])
+def group_score(id):
+    form = ScoreForm()
+    student = Student.query.filter_by(id=id).first()
+    groupID = student.groupID
+    group_leader = Group.query.filter_by(groupID=groupID).first().group_leader
+
+    if current_user.id==group_leader:
+        if form.validate_on_submit():
+            student.group_score = form.group_score.data
+            db.session.add(student)
+            return redirect(url_for('student.studentInfo', id=student.id))
+    else:
+        flash(u'不是组长不要乱打分哦')
+        return redirect(url_for('main.index'))
+    form.group_score.data = student.group_score
+    return render_template('group_score.html', form=form, student=student)
+
+
+
+@student.route('/lookNotice', methods=['GET', 'POST'])
+def lookNotice():
+    notices = Notice.query.filter_by(teacherID=current_user.teacherID).order_by(Notice.timestamp.desc()).all()
+    teacher_name = Student.query.filter_by(id=current_user.teacherID).first().name
+    return render_template('lookNotice.html', notices=notices, teacher_name=teacher_name)
 
 @student.route('/edit-info', methods=['GET', 'POST'])
 @login_required
@@ -59,15 +85,17 @@ def chooseTeacher():
 @login_required
 def studentInfo(id):
     user = Student.query.filter_by(id=id).first()
+    groupID = user.groupID
+    group_leader = Group.query.filter_by(groupID=groupID).first().group_leader
     if user is None:
         abort(404)
-    return render_template('studentInfo.html', user=user)
+    return render_template('studentInfo.html', user=user, group_leader=group_leader)
 
 @student.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        student = Student.query.filter_by(username = form.username.data).first()
+        student = Student.query.filter_by(username=form.username.data).first()
         if student is not None and student.verify_password(form.password.data):
             login_user(student, form.remember_me.data)
             return redirect(request.args.get('next') or url_for('main.index'))

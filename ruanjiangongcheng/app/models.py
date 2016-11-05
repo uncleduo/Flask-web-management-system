@@ -5,12 +5,21 @@ from . import login_manager
 #from flask_moment import datetime
 from datetime import datetime
 
+class Notice(db.Model):
+    __tablename__ = 'notice'
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    teacherID = db.Column(db.Integer, db.ForeignKey('student.id'))
+
+
 class Group(db.Model):
     __tablename__ = 'group'
     groupID = db.Column(db.Integer, primary_key=True)
     group_name = db.Column(db.String(64))
     group_leader = db.Column(db.String(64))
     teacherID = db.Column(db.Integer)
+
 
 class Student(UserMixin,db.Model):
     __tablename__ = 'student'
@@ -32,9 +41,10 @@ class Student(UserMixin,db.Model):
     group_score = db.Column(db.Integer)
     final_score = db.Column(db.Integer)
     groupID = db.Column(db.Integer)
+    notices = db.relationship('Notice', backref='student', lazy='dynamic')
 
     def ping(self):
-        self.last_seen = str(datetime.utcnow())[:19]
+        self.last_seen = datetime.utcnow()
         db.session.add(self)
 
 

@@ -1,7 +1,14 @@
 {% extends "base.html" %}
-{% block title %}我的信息{% endblock %}
+{% block title %}学生信息{% endblock %}
 
 {% block page_content %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{{ moment.lang('zh_cn') }}
+{% endblock %}
+
 <div class="page-header">
     {% if user.name %}
         <h1>{{ user.name }}</h1>
@@ -22,52 +29,52 @@
     {% endwith %}
 
     {% if user.major %}
-        <h3>班级:{{ user.major }}</h3>
+        <h3>学生班级:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.major }}</h3>
     {% else %}
         <h3>尚未填写班级</h3>
     {% endif %}
     {% if user.studentID %}
-        <h3>学号:{{ user.studentID }}</h3>
+        <h3>学生学号:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.studentID }}</h3>
     {% else %}
         <h3>尚未填写学号</h3>
     {% endif %}
     {% if user.info %}
-        <h3>个人信息:{{ user.info }}</h3>
+        <h3>个人信息:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.info }}</h3>
     {% else %}
         <h3>尚未填写个人信息</h3>
     {% endif %}
     {% if user.email %}
-        <h3>邮箱:{{ user.email }}</h3>
+        <h3>电子邮箱:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.email }}</h3>
     {% else %}
         <h3>尚未填写邮箱</h3>
     {% endif %}
     {% if user.telephone %}
-        <h3>手机号码:{{ user.telephone }}</h3>
+        <h3>手机号码:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.telephone }}</h3>
     {% else %}
         <h3>尚未填写手机号码</h3>
     {% endif %}
     {% if user.regular_score %}
-        <h3>平时成绩:{{ user.regular_score }}分</h3>
+        <h3>平时成绩:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.regular_score }}分</h3>
     {% else %}
         <h3>平时成绩尚未打分</h3>
     {% endif %}
     {% if user.group_score %}
-        <h3>小组成绩:{{ user.group_score }}分</h3>
+        <h3>小组成绩:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.group_score }}分</h3>
     {% else %}
         <h3>小组成绩尚未打分</h3>
     {% endif %}
     {% if user.final_score %}
-        <h3>期末成绩:{{ user.final_score }}分</h3>
+        <h3>期末成绩:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.final_score }}分</h3>
     {% else %}
         <h3>期末成绩尚未打分</h3>
     {% endif %}
     {% if user.member_since %}
-        <h3>注册时间:{{ user.member_since }}</h3>
+        <h3>注册时间:&nbsp;&nbsp;&nbsp;&nbsp;{{ moment(user.member_since).format('LLL') }}</h3>
     {% else %}
         <h3>注册时间找不到了(O.O)</h3>
     {% endif %}
     {% if user.last_seen %}
-        <h3 >上次登录时间:{{ user.last_seen }}</h3>
+        <h3 >上次登录:&nbsp;&nbsp;&nbsp;&nbsp;{{ moment(user.last_seen).fromNow() }}</h3>
     {% else %}
         <h3>上次登录时间找不到了QAQ</h3>
     {% endif %}
@@ -76,24 +83,29 @@
     {% else %}
         <h3>不可能,id是主键,你怎么会没有id!?</h3>
     {% endif %}
-    {% if user == current_user %}
-    <a class="btn btn-primary btn-lg" href="{{ url_for('student.edit_info') }}" style="margin:0px 10px 0px 0px;">
-        编辑信息
-    </a>
-    <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}" style="margin:0px 10px 0px 0px;">
-        返回主页
-    </a>
-    {% elif user.teacherID == current_user.id %}
-    <a class="btn btn-default btn-lg" href="{{ url_for('teacher.myStudent') }}" style="margin:0px 10px 0px 0px;">
-        返回学生列表
-    </a>
-    <a class="btn btn-default btn-lg" href="{{ url_for('group.groupList',teacherID=current_user.id) }}" style="margin:0px 10px 0px 0px;">
-        返回小组列表</a>
-    {% else %}
-    <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}" style="margin:0px 10px 0px 0px;">
-        看完了，我要返回
+    {% if group_leader == current_user.id %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('student.group_score',id=user.id) }}" style="margin:0px 10px 20px 0px;">
+        打小组分
     </a>
     {% endif %}
+    {% if user == current_user %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('student.edit_info') }}" style="margin:0px 10px 20px 0px;">
+        编辑信息
+    </a>
+    {% elif user.teacherID == current_user.id %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.edit_score',id=user.id) }}" style="margin:0px 10px 20px 0px;">
+        给该学生打分
+    </a>
+    <a class="btn btn-default btn-lg" href="{{ url_for('teacher.myStudent') }}" style="margin:0px 10px 20px 0px;">
+        返回学生列表
+    </a>
+    {% else %}
+    {% endif %}
+    <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}" style="margin:0px 10px 20px 0px;">
+        返回主页
+    </a>
+    <a class="btn btn-default btn-lg" href="{{ url_for('group.groupInfo',groupID=user.groupID) }}" style="margin:0px 10px 20px 0px;">
+        返回所在小组</a>
 </div>
 
 

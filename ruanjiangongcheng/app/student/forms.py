@@ -1,10 +1,14 @@
 # -*- coding:utf-8 -*-
 from flask_wtf import Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import Required, Length, Regexp, EqualTo
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms.validators import Required, Length, Regexp, EqualTo, NumberRange
 from wtforms import ValidationError
 from ..models import Student
 
+
+class ScoreForm(Form):
+    group_score = IntegerField(u'请给平时成绩打分', validators=[NumberRange(0,100,u'必须是0-100的数字')])
+    submit = SubmitField(u'打分')
 
 class LoginForm(Form):
     username = StringField(u'用户名', validators=[Required(), Length(1, 64)])

@@ -37,8 +37,10 @@
       </a>
       <a class="btn btn-primary btn-lg" href="{{ url_for('group.groupList',teacherID=current_user.id) }}" style="margin:0px 10px 0px 0px;">
         查看班级分组</a>
-      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
+      <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.createNotice') }}" style="margin:0px 10px 0px 0px;">
         管理通知公告</a>
+      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
+        管理课程文档</a>
       {% else %}
       {% if current_user.teacherID %}
       <h3>这里是学生主页,你可以</h3>
@@ -53,7 +55,10 @@
         查看学生分组</a>
       <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.teacherInfo',id=current_user.teacherID) }}" style="margin:0px 10px 0px 0px;">
         查看我的老师</a>
-
+      <a class="btn btn-primary btn-lg" href="{{ url_for('student.lookNotice') }}" style="margin:0px 10px 0px 0px;">
+        查看班级公告</a>
+      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
+        查看课程文档</a>
       {% else %}
       <h3>这里是学生主页<br>你尚未选择老师，你可以点击下方选择老师，或者随便逛逛，也可以不选择老师（挂科不负责）</h3>
       <a class="btn btn-primary btn-lg" href="{{ url_for('student.chooseTeacher') }}">
