@@ -23,6 +23,8 @@
         </ul>
         {% endif %}
     {% endwith %}
+    <a class="btn btn-default" href="{{ url_for('main.index') }}" style="margin:10px 10px 20px 0px;">
+        返回主页</a>
     <ul class="notices">
         {% for notice in notices %}
         <li class="notice">

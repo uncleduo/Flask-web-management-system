@@ -75,9 +75,9 @@
     </table>
     <br><br><br>
 
-    {% if current_user.id == group.teacherID %}
     <a class="btn btn-default btn-lg" href="{{ url_for('group.groupList',teacherID=group.teacherID) }}" style="margin:0px 10px 0px 0px;">
         返回小组列表</a>
+    {% if current_user.id == group.teacherID %}
     <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
         查看该组文档</a>
     {% else %}
