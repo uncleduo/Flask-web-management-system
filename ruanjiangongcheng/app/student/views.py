@@ -3,7 +3,7 @@ from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from . import student
 from ..models import Student, Notice, Group
-from .forms import LoginForm, RegistrationForm, EditInfoForm, ScoreForm
+from .forms import LoginForm, RegistrationForm, EditInfoForm, ScoreForm, ChangePasswordForm
 from app import db
 
 @student.route('/secret')
@@ -15,6 +15,20 @@ def secret():
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
+
+
+@student.route('/changePassword', methods=['GET', 'POST'])
+def changePassword():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        student = Student.query.filter_by(username=current_user.username).first()
+        if student is not None and student.verify_password(form.old_password.data):
+            student.password = form.new_password.data
+            db.session.add(student)
+            return redirect(request.args.get('next') or url_for('main.index'))
+        flash(u'旧密码不对')
+    return render_template('changePassword.html', form=form)
+
 
 @student.route('/group_score/<id>', methods=['GET', 'POST'])
 def group_score(id):
@@ -35,12 +49,12 @@ def group_score(id):
     return render_template('group_score.html', form=form, student=student)
 
 
-
 @student.route('/lookNotice', methods=['GET', 'POST'])
 def lookNotice():
     notices = Notice.query.filter_by(teacherID=current_user.teacherID).order_by(Notice.timestamp.desc()).all()
     teacher_name = Student.query.filter_by(id=current_user.teacherID).first().name
     return render_template('lookNotice.html', notices=notices, teacher_name=teacher_name)
+
 
 @student.route('/edit-info', methods=['GET', 'POST'])
 @login_required

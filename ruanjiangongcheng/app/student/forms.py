@@ -6,6 +6,13 @@ from wtforms import ValidationError
 from ..models import Student
 
 
+class ChangePasswordForm(Form):
+    old_password = PasswordField(u'请输入旧密码', validators=[Required()])
+    new_password = PasswordField(u'请输入新密码', validators=[Required(), EqualTo('new_password2', message=u'两次密码不一样诶')])
+    new_password2 = PasswordField(u'确认新密码', validators=[Required()])
+    submit = SubmitField(u'改密')
+
+
 class ScoreForm(Form):
     group_score = IntegerField(u'请给平时成绩打分', validators=[NumberRange(0,100,u'必须是0-100的数字')])
     submit = SubmitField(u'打分')

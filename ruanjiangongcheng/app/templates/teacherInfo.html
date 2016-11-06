@@ -64,8 +64,11 @@
     {% else %}
         <h3>不可能,id是主键,你怎么会没有id!?</h3>
     {% endif %}
-    <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.edit_info') }}">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.edit_info') }}" style="margin:0px 10px 20px 0px;">
         编辑信息
+    </a>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('student.changePassword') }}" style="margin:0px 10px 20px 0px;">
+        修改密码
     </a>
     <div style="height:20px"></div>
     <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}">
