@@ -97,7 +97,7 @@ def createNotice():
         notice = Notice(body=form.body.data,
                             teacherID=current_user.id)
         db.session.add(notice)
-        return redirect(url_for('main.index'))
+        return redirect(url_for('teacher.createNotice'))
     notices = Notice.query.filter_by(teacherID=current_user.id).order_by(Notice.timestamp.desc()).all()
     return render_template('createNotice.html', form=form, notices=notices)
 
