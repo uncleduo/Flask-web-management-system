@@ -39,6 +39,8 @@
             <div class="profile-thumbnail"></div>
             <div class="notice-date"><h3>{{ current_user.name }}  发布时间:{{ moment(notice.timestamp).fromNow()  }}</h3></div>
             <div class="notice-body" style="font-size:16px;">{{ notice.body }}</div>
+            <a class="btn btn-warning btn-sm" href="{{ url_for('teacher.deleteNotice',id = notice.id) }}">
+        删除本条</a>
         </li>
         {% endfor %}
     </ul>

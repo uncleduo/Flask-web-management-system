@@ -66,6 +66,9 @@ def edit_info():
 @student.route('/addTeacher/<teacherID>')
 @login_required
 def addTeacher(teacherID):
+    if current_user.role == 1:
+        flash(u'这是学生的功能，你走错啦')
+        return redirect(url_for('main.index'))
     student_now = Student.query.filter_by(studentID=current_user.studentID).first()
     if student_now.teacherID :
         flash(u'不许重复选择')
@@ -78,6 +81,9 @@ def addTeacher(teacherID):
 @student.route('/chooseTeacher')
 @login_required
 def chooseTeacher():
+    if current_user.role == 1:
+        flash(u'这是学生的功能，你走错啦')
+        return redirect(url_for('main.index'))
     teacherList = Student.query.filter_by(role=1).all()
     return render_template('chooseTeacher.html', teacherList=teacherList)
 
@@ -85,6 +91,9 @@ def chooseTeacher():
 @login_required
 def studentInfo(id):
     user = Student.query.filter_by(id=id).first()
+    if user.role == 1:
+        flash(u'这是学生信息，你走错啦')
+        return redirect(url_for('main.index'))
     groupID = user.groupID
     group_leader = None
     if groupID:

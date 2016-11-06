@@ -53,6 +53,9 @@
     {% else %}
         <h3>尚未填写手机号码</h3>
     {% endif %}
+
+        <h3>缺勤情况:&nbsp;&nbsp;&nbsp;&nbsp;缺勤:{{ user.absent_count }}次&nbsp;&nbsp;&nbsp;&nbsp;迟到:{{ user.late_count }}次</h3>
+
     {% if user.regular_score %}
         <h3>平时成绩:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.regular_score }}分</h3>
     {% else %}

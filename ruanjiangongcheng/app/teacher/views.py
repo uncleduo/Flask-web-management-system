@@ -13,6 +13,61 @@ def before_request():
         current_user.ping()
 
 
+@teacher.route('/attendance', methods=['GET', 'POST'])
+@login_required
+def attendance():
+    if current_user.role == 0:
+        flash(u'这是老师的功能，你走错啦')
+        return redirect(url_for('main.index'))
+    myStudentList = Student.query.filter_by(teacherID=current_user.id).all()
+
+    return render_template('attendance.html', myStudentList=myStudentList)
+
+
+@teacher.route('/isLate/<id>')
+def isLate(id):
+    student = Student.query.filter_by(id=id).first()
+    if student.absent_count == None:
+        student.absent_count = 0
+    if student.late_count == None:
+        student.late_count = 0
+    if student.teacherID == current_user.id:
+        if student.absent_count == 0:
+            flash(u'他没有缺勤，不能记一次迟到')
+        else:
+            student.absent_count -=1
+            student.late_count +=1
+            db.session.add(student)
+        return redirect(url_for('.attendance'))
+    else:
+        flash(u'乖，不是老师不要乱给别人加未到哦')
+        return redirect(url_for('main.index'))
+
+@teacher.route('/addAbsent/<id>')
+def addAbsent(id):
+    student = Student.query.filter_by(id=id).first()
+    if student.absent_count == None:
+        student.absent_count = 0
+    if student.teacherID == current_user.id:
+        student.absent_count += 1
+        db.session.add(student)
+        return redirect(url_for('.attendance'))
+    else:
+        flash(u'乖，不是老师不要乱给别人加未到哦')
+        return redirect(url_for('main.index'))
+
+@teacher.route('/deleteNotice/<id>')
+def deleteNotice(id):
+    notice = Notice.query.filter_by(id=id).first()
+    if notice.teacherID == current_user.id:
+        db.session.delete(notice)
+        flash(u'已经删除该通知')
+        return redirect(url_for('.createNotice'))
+    else:
+        flash(u'你不可以删除哦')
+        return redirect(url_for('main.index'))
+
+
 @teacher.route('/edit_score/<id>', methods=['GET', 'POST'])
 def edit_score(id):
     form = ScoreForm()
@@ -34,6 +89,9 @@ def edit_score(id):
 
 @teacher.route('/createNotice', methods=['GET', 'POST'])
 def createNotice():
+    if current_user.role == 0:
+        flash(u'这是老师的功能，你走错啦')
+        return redirect(url_for('main.index'))
     form = NoticeForm()
     if current_user.role and form.validate_on_submit():
         notice = Notice(body=form.body.data,
@@ -69,6 +127,9 @@ def edit_info():
 @login_required
 def teacherInfo(id):
     user = Student.query.filter_by(id=id).first()
+    if user.role == 0:
+        flash(u'这是老师信息，你走错啦')
+        return redirect(url_for('main.index'))
     if user is None:
         abort(404)
     return render_template('teacherInfo.html', user=user)
@@ -76,5 +137,8 @@ def teacherInfo(id):
 @teacher.route('/myStudent')
 @login_required
 def myStudent():
+    if current_user.role == 0:
+        flash(u'这是老师的功能，你走错啦')
+        return redirect(url_for('main.index'))
     myStudentList = Student.query.filter_by(teacherID=current_user.id).all()
     return render_template('myStudent.html', myStudentList=myStudentList)

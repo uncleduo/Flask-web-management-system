@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}我的学生{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+        <h1>学生列表</h1>
+</div>
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes></ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}" style="color:#337AB7">{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
+    <table class="table table-striped table-condensed table-hover">
+    <thead>
+    <tr>
+        <th><h3>学生姓名</h3></th>
+        <th><h3>学生学号</h3></th>
+        <th><h3>缺勤次数</h3></th>
+        <th><h3>迟到次数</h3></th>
+        <th><h3>课堂考勤</h3></th>
+    </tr>
+    </thead>
+
+    <tbody></tbody>
+    {% for student in myStudentList %}
+    <tr>
+        <td>
+            <h4>
+            {% if student.name %}
+            {{ student.name }}
+            {% else %}
+            学生还未填写
+            {% endif %}
+            </h4>
+        </td>
+        <td>
+            <h4>
+            {% if student.studentID %}
+            {{ student.studentID }}
+            {% else %}
+            学生还未填写
+            {% endif %}
+            </h4>
+        </td>
+        <td>
+            <h4>
+            {{ student.absent_count }}次
+            </h4>
+        </td>
+        <td>
+            <h4>
+            {{ student.late_count }}次
+            </h4>
+        </td>
+        <td>
+            <a class="btn btn-warning btn-sm" href="{{ url_for('teacher.addAbsent', id=student.id) }}">本次未到</a>
+            <a class="btn btn-warning btn-sm" href="{{ url_for('teacher.isLate', id=student.id) }}">改为迟到</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+    <br><br><br>
+    <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}" style="margin:0px 10px 0px 0px;">
+        返回主页
+    </a>
+</div>
+
+
+{% endblock %}

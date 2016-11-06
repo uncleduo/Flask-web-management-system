@@ -39,7 +39,7 @@
         查看班级分组</a>
       <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.createNotice') }}" style="margin:0px 10px 10px 0px;">
         管理通知公告</a>
-      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 10px 0px;">
+      <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.attendance') }}" style="margin:0px 10px 10px 0px;">
         查看学生考勤</a>
       <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 10px 0px;">
         管理课程文档</a>
@@ -62,7 +62,7 @@
       <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 10px 0px;">
         查看课程文档</a>
       {% else %}
-      <h3>这里是学生主页<br>你尚未选择老师，你可以点击下方选择老师，或者随便逛逛，也可以不选择老师（挂科不负责）</h3>
+      <h3 style="margin:0px 0px 40px 0px;">这里是学生主页<br>你尚未选择老师，你可以点击下方选择老师，或者随便逛逛，也可以不选择老师（挂科不负责）</h3>
       <a class="btn btn-primary btn-lg" href="{{ url_for('student.chooseTeacher') }}">
         选择老师
       </a>
@@ -70,7 +70,7 @@
       {% endif %}
       {% else %}
       {% endif %}
-      <h4><br><br><br>版本号:0.1.1v<br>预计下次更新:10月6日。<br>下次更新功能:增加考勤系统，修改密码功能，增加浏览器兼容。<br>如发现bug,系统宕机可联系QQ845287343,欢迎提出批评意见。</h4>
+      <h4><br><br><br>版本号:0.1.2v<br>更新时间：11.6上午。<br>本次更新功能:增加考勤系统，增加浏览器/手机兼容,增加教师删除通知功能。<br>如发现bug,系统宕机可联系QQ845287343,欢迎提出批评意见。</h4>
   </div>
 
 </div>

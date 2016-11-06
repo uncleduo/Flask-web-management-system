@@ -41,6 +41,8 @@ class Student(UserMixin,db.Model):
     group_score = db.Column(db.Integer)
     final_score = db.Column(db.Integer)
     groupID = db.Column(db.Integer)
+    absent_count = db.Column(db.Integer, default=0)
+    late_count = db.Column(db.Integer, default=0)
     notices = db.relationship('Notice', backref='student', lazy='dynamic')
 
     def ping(self):
