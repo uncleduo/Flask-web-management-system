@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}LessonLearned{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+    <div class="page-header">
+        <h1>原型系统-LessonLearned</h1></div>
+    <div>
+        <h3>关于需求分析</h3>
+        <h4 style="line-height:150%">在项目的实际编写中，会发现需求中的缺陷与不合理性，我们应该本着严谨认真的学习态度(2333)，
+            及时与小组成员讨论，对确实有必要增加的需求，不应该偷懒，而对于不合理的需求，也应该加以改进，
+            并与小组成员及时交流保持信息的一致性。</h4>
+        <h3>关于模块编写</h3>
+        <h4 style="line-height:150%">在进行coding之前，一定要有一套比较清晰的设计模式，才能保证代码不会越写越头大以致项目崩溃。</h4>
+        <h3>关于原型测试</h3>
+        <h4 style="line-height:150%">每写完一个新的模块，都最好进行一次回归测试，因为bug永远是你猜不到的。</h4>
+        <h3>关于小组分工</h3>
+        <h4 style="line-height:150%">在项目进行中，要多与小组成员讨论，积极交流，才能把项目做好。</h4>
+        <div style="height:60px"></div>
+        <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}">返回主页</a>
+    </div>
+
+        </div>
+{% endblock %}

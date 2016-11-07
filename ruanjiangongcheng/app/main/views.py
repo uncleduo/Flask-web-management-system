@@ -6,10 +6,17 @@ from . import main
 from .. import db
 #from ..models import User
 
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 
+
 @main.route('/onCoding')
 def onCoding():
     return render_template('onCoding.html')
+
+
+@main.route('/lessonLearned')
+def lessonLearned():
+    return render_template('lessonLearned.html')
