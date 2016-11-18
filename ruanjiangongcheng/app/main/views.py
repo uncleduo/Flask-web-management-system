@@ -20,3 +20,7 @@ def onCoding():
 @main.route('/lessonLearned')
 def lessonLearned():
     return render_template('lessonLearned.html')
+
+@main.route('/gameInfo')
+def gameInfo():
+    return render_template('gameInfo.html')

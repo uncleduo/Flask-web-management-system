@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}花满楼{% endblock %}
+
+{% block body %}
+<meta charset="UTF-8">
+<style>body{font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;}body{padding-bottom:30px}</style>
+{% block navbar %}
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="navbar navbar-inverse" role="navigation" >
+    <div class="container" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/gameInfo" >多益-基于unity3D的ARPG游戏 </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block page_content %}
+        <div class="page-header">
+            <h1>花满楼-介绍与下载</h1>
+        </div>
+    {% endblock %}
+    <div>
+        <h3>控制：鼠标左键控制行走，右键转换视野，中键控制视野的缩放</h3>
+        <h3>战斗：左键普攻，将技能拖到快捷栏中，按对应快捷键释放</h3>
+        <a class="btn btn-info btn-lg" href="http://pan.baidu.com/s/1gfqOwin" style="margin:10px 30px 20px 0px;" target="_blank">
+            下载游戏</a>
+        <a class="btn btn-info btn-lg" href="http://pan.baidu.com/s/1bo9DheR" style="margin:10px 30px 20px 0px;" target="_blank">
+            下载源码</a>
+    </div>
+    <div>
+        <h1 class="page-header">开始界面</h1>
+        <img src="/static/img/start.png" class="img-thumbnail" />
+        <h1 class="page-header">技能界面</h1>
+        <img src="/static/img/skillinfo.png" class="img-thumbnail" />
+        <h1 class="page-header">释放技能</h1>
+        <img src="/static/img/skill.png" class="img-thumbnail" />
+        <h3 style="height:100px">为防止网站过卡，不再多方图片，还请自行下载试玩<br>
+            游戏可能会有bug，请多海涵并告知我，我会努力修复的！<br>
+            E-mail:yiduo_wang@163.com</h3>
+    </div>
+</div>
+{% endblock %}
+
+<footer style="position: fixed; bottom: 0;width: 100%;background-color:#fff">
+    <div class="span7 text-center">&CopyRight - 王一多 - 耿佳宁 - 周飞宇 - 闫佳毓</div>
+</footer>
+{% endblock %}

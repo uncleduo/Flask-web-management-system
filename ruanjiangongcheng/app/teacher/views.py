@@ -24,6 +24,19 @@ def attendance():
     return render_template('attendance.html', myStudentList=myStudentList)
 
 
+@teacher.route('/delete/<id>')
+def delete(id):
+    student = Student.query.filter_by(id=id).first()
+    if student.teacherID == current_user.id:
+        name = str(student.name)
+        db.session.delete(student)
+        flash(u'已经删除学生'+name)
+        return redirect(url_for('teacher.myStudent'))
+    else:
+        flash(u'不是老师不能乱删=-=')
+        return redirect(url_for('teacher.myStudent'))
+
+
 @teacher.route('/isLate/<id>')
 def isLate(id):
     student = Student.query.filter_by(id=id).first()
