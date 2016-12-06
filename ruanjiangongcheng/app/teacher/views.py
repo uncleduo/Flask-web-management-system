@@ -1,16 +1,74 @@
 # -*- coding:utf-8 -*-
-from flask import render_template, redirect, request, url_for, flash, abort
+from flask import render_template, redirect, request, url_for, flash, abort, send_from_directory
 from flask_login import login_user, login_required, logout_user, current_user
 from . import teacher
-from ..models import Student, Notice, Group
+from ..models import Student, Notice, Group, ClassDoc
+from werkzeug.utils import secure_filename
 from .forms import EditInfoForm, NoticeForm, ScoreForm
-from app import db
+import os, time
+from app import db, config
 
 
 @teacher.before_app_request
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
+
+
+@teacher.route('/showDoc', methods=('GET', 'POST'))
+@login_required
+def showDoc():
+    doc_list = ClassDoc.query.filter_by(teacherID=current_user.id).order_by(ClassDoc.commit_date.desc()).all()
+    return render_template('showDoc.html', doc_list=doc_list)
+
+
+@teacher.route('/docManage', methods=('GET', 'POST'))
+@login_required
+def docManage():
+    if current_user.role == 0:
+        flash(u'这是老师的功能，你走错啦')
+        return redirect(url_for('main.index'))
+    return render_template('docManage.html')
+
+
+@teacher.route("/downloadDoc/<int:docID>")
+@login_required
+def downloadDoc(docID):
+    filename = ClassDoc.query.filter_by(docID=docID).first().file_name
+    if current_user.role:
+        user_dir = config['default'].UPLOAD_FOLDER + str(current_user.id)
+    else:
+        user_dir = config['default'].UPLOAD_FOLDER + str(current_user.teacherID)
+    return send_from_directory(user_dir, filename, as_attachment=True)
+
+
+@teacher.route('/uploadFile', methods=('GET', 'POST'))
+@login_required
+def uploadFile():
+    if request.method == 'GET':
+        return render_template('uploadDoc.html')
+    if request.method == "POST":
+        t_file = request.files["file"]
+        info = request.form["info"]
+        user_dir = config['default'].UPLOAD_FOLDER + str(current_user.id)
+        if not os.path.exists(user_dir):
+            os.mkdir(user_dir)
+        ext_name = secure_filename(t_file.filename.split(".")[-1])
+        if ext_name == '':
+            flash(u'不要上传空文件')
+            return redirect(url_for('teacher.docManage'))
+        new_filename = str(abs(hash(t_file.filename))) + str(time.time())[:10] + "." + ext_name
+        file_path = os.path.join(user_dir, new_filename)
+        # ToDo
+        file_record = ClassDoc(teacherID=current_user.id, file_path=file_path, file_name=new_filename, real_name = info)
+        try:
+            db.session.add(file_record)
+            t_file.save(file_path)
+        except:
+            db.session.rollback()
+            return "fail", 500
+        flash(u'上传成功')
+    return redirect(url_for('teacher.docManage'))
 
 
 @teacher.route('/attendance', methods=['GET', 'POST'])

@@ -4,10 +4,18 @@
 
 {% block content %}
 <div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
   <div class="page-header">
 {% if current_user.is_authenticated %}
-          {% if current_user.role %}
+          {% if current_user.role == 1 %}
       <h1>{{ current_user.username }}老师您好,欢迎来到软件工程课程管理系统</h1>
+      {% elif current_user.role == 2 %}
+      <h1>管理员您好,欢迎来到软件工程课程管理系统</h1>
       {% else %}
       <h1>{{ current_user.username }}同学您好,欢迎来到软件工程课程管理系统</h1>
       {% endif %}
@@ -18,18 +26,8 @@
   </div>
 
   <div>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class=flashes></ul>
-            {% for category, message in messages %}
-              <li class="{{ category }}" style="color:#337AB7">{{ message }}</li>
-            {% endfor %}
-        </ul>
-      {% endif %}
-      {% endwith %}
-
       {% if current_user.is_authenticated %}
-      {% if current_user.role %}
+      {% if current_user.role == 1 %}
       <h3>这里是老师主页,你可以</h3>
       <div style="height:10px"></div>
       <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.myStudent') }}" style="margin:0px 10px 10px 0px;">
@@ -41,8 +39,13 @@
         管理通知公告</a>
       <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.attendance') }}" style="margin:0px 10px 10px 0px;">
         查看学生考勤</a>
-      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 10px 0px;">
+      <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.docManage') }}" style="margin:0px 10px 10px 0px;">
         管理课程文档</a>
+      {% elif current_user.role == 2 %}
+      <h3>这里是管理员主页,你可以</h3>
+      <div style="height:10px"></div>
+      <a class="btn btn-primary btn-lg" href="{{ url_for('admin.createTeacher') }}" style="margin:0px 10px 10px 0px;">
+        创建一个老师</a>
       {% else %}
       {% if current_user.teacherID %}
       <h3>这里是学生主页,你可以</h3>
@@ -59,7 +62,7 @@
         查看我的老师</a>
       <a class="btn btn-primary btn-lg" href="{{ url_for('student.lookNotice') }}" style="margin:0px 10px 10px 0px;">
         查看班级公告</a>
-      <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 10px 0px;">
+      <a class="btn btn-primary btn-lg" href="{{ url_for('student.showDoc') }}" style="margin:0px 10px 10px 0px;">
         查看课程文档</a>
       {% else %}
       <h3 style="margin:0px 0px 40px 0px;">这里是学生主页<br>你尚未选择老师，你可以点击下方选择老师，或者随便逛逛，也可以不选择老师（挂科不负责）</h3>
@@ -70,9 +73,8 @@
       {% endif %}
       {% else %}
       {% endif %}
-      <h4 style="line-height:150%"><br><br>版本号:0.1.3v<br>更新时间：11.6晚上。<br>本次更新功能:增加考勤系统，增加浏览器/手机兼容,增加教师删除通知功能,增加修改密码功能。<br>如发现bug,系统宕机可联系QQ845287343,欢迎提出批评意见。</h4>
+      <h4 style="line-height:150%"><br><br>版本号:0.1.3v<br>更新时间：12.6<br>本次更新功能:完成上传课程文档功能。<br>如发现bug,系统宕机可联系QQ845287343,欢迎提出批评意见。</h4>
   </div>
-
 </div>
 
 {% endblock %}

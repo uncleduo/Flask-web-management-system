@@ -2,7 +2,7 @@
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user, current_user
 from . import student
-from ..models import Student, Notice, Group
+from ..models import Student, Notice, Group, ClassDoc
 from .forms import LoginForm, RegistrationForm, EditInfoForm, ScoreForm, ChangePasswordForm
 from app import db
 
@@ -15,6 +15,12 @@ def secret():
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
+
+@student.route('/showDoc', methods=('GET', 'POST'))
+@login_required
+def showDoc():
+    doc_list = ClassDoc.query.filter_by(teacherID=current_user.teacherID).order_by(ClassDoc.commit_date.desc()).all()
+    return render_template('showDoc.html', doc_list=doc_list)
 
 
 @student.route('/changePassword', methods=['GET', 'POST'])

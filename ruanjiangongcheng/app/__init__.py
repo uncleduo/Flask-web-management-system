@@ -36,4 +36,7 @@ def create_app(config_name):
     from .group import group as group_blueprint
     app.register_blueprint(group_blueprint, url_prefix='/group')
 
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
+
     return app

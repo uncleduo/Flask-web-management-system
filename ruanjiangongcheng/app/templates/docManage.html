@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}课程文档{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+    <div class="page-header">
+        <h1>课程文档</h1></div>
+    <div>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.showDoc') }}" style="margin:0px 10px 10px 0px;">
+        查看课程文档</a>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('teacher.uploadFile') }}" style="margin:0px 10px 10px 0px;">
+        上传课程文档</a>
+    </div>
+</div>
+{% endblock %}

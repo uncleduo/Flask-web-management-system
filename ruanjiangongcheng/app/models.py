@@ -5,6 +5,17 @@ from . import login_manager
 #from flask_moment import datetime
 from datetime import datetime
 
+
+class ClassDoc(db.Model):
+    __tablename__ = 'classDoc'
+    docID = db.Column(db.Integer, primary_key=True)
+    commit_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    teacherID = db.Column(db.Integer)
+    file_path = db.Column(db.String(255))
+    file_name = db.Column(db.String(255))
+    real_name = db.Column(db.String(255))
+
+
 class Notice(db.Model):
     __tablename__ = 'notice'
     id = db.Column(db.Integer, primary_key=True)
@@ -26,7 +37,7 @@ class Student(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64))
     name = db.Column(db.String(64))
-    role = db.Column(db.Integer, unique=True, default=0)
+    role = db.Column(db.Integer, default=0)
     studentID = db.Column(db.Integer, unique=True)
     teacherID = db.Column(db.Integer)
     password = db.Column(db.String(256))

@@ -9,7 +9,9 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-
+    UPLOAD_FOLDER = basedir + "/uploads/"
+    ALLOWED_EXTENSIONS = ("rar", "zip")
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     @staticmethod
     def init_app(app):
         pass
