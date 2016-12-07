@@ -68,6 +68,10 @@
     <a class="btn btn-default btn-lg" href="{{ url_for('admin.teacherList') }}">
         返回教师列表
     </a>
+    <div style="height:40px"></div>
+        <a class="btn btn-danger btn-lg" href="{{ url_for('admin.deleteUser',id = user.id) }}">
+        删除这个老师
+    </a>
     {% else %}
     <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}">
         返回主页

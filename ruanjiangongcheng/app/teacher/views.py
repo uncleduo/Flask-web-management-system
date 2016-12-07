@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from flask import render_template, redirect, request, url_for, flash, abort, send_from_directory
+from flask import render_template, redirect, request, url_for, flash, abort, send_from_directory,send_file
 from flask_login import login_user, login_required, logout_user, current_user
 from . import teacher
 from ..models import Student, Notice, Group, ClassDoc
@@ -7,12 +7,33 @@ from werkzeug.utils import secure_filename
 from .forms import EditInfoForm, NoticeForm, ScoreForm
 import os, time
 from app import db, config
+import tablib
 
 
 @teacher.before_app_request
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
+
+
+@teacher.route('/generateExcel', methods=('GET', 'POST'))
+@login_required
+def generateExcel():
+    myStudent = Student.query.filter_by(teacherID=current_user.id).order_by(Student.studentID.desc()).all()
+    headers = (u'姓名', u'学号', u'手机号', u'邮箱', u'平时分', u'小组分', u'总分')
+    info = []
+    for student in myStudent:
+        temp = (student.name, student.studentID, student.teacherID, student.email, student.regular_score, student.group_score, student.final_score)
+        info.append(temp)
+    data = tablib.Dataset(*info, headers=headers)
+    user_dir = config['default'].UPLOAD_FOLDER + str(current_user.id)
+    if not os.path.exists(user_dir):
+        os.mkdir(user_dir)
+    filename = 'point.xls'
+    file_path = os.path.join(user_dir, filename)
+    open(file_path, 'wb').write(data.xls)
+    return send_from_directory(user_dir, filename, as_attachment=True)
+
 
 
 @teacher.route('/showDoc', methods=('GET', 'POST'))

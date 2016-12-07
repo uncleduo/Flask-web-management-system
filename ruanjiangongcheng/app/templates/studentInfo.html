@@ -107,11 +107,16 @@
     <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}" style="margin:0px 10px 20px 0px;">
         返回主页
     </a>
-    {% if user.groupID %}
+    {% if user.groupID and current_user.role != 2 %}
     <a class="btn btn-default btn-lg" href="{{ url_for('group.groupInfo',groupID=user.groupID) }}" style="margin:0px 10px 20px 0px;">
         返回所在小组</a>
     {% endif %}
+    {% if current_user.role == 2 %}
+    <div style="height:30px"></div>
+        <a class="btn btn-danger btn-lg" href="{{ url_for('admin.deleteUser',id = user.id) }}">
+        删除这个学生
+    </a>
+    {% endif %}
 </div>
-
 
 {% endblock %}

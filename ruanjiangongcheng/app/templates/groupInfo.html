@@ -80,7 +80,7 @@
         查看该组文档</a>
     {% if current_user.id == group.teacherID %}
     {% else %}
-        {% if current_user.groupID %}
+        {% if current_user.groupID and current_user.role == 1 %}
         {% else %}
         <h3>你尚未选择小组，你可以</h3>
         <a class="btn btn-primary btn-lg" href="{{ url_for('group.joinGroup',groupID=group.groupID) }}" style="margin:0px 10px 0px 0px;">
