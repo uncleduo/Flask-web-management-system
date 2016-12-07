@@ -44,6 +44,8 @@
       {% elif current_user.role == 2 %}
       <h3>这里是管理员主页,你可以</h3>
       <div style="height:10px"></div>
+      <a class="btn btn-primary btn-lg" href="{{ url_for('admin.teacherList') }}" style="margin:0px 10px 10px 0px;">
+        查看所有老师</a>
       <a class="btn btn-primary btn-lg" href="{{ url_for('admin.createTeacher') }}" style="margin:0px 10px 10px 0px;">
         创建一个老师</a>
       {% else %}

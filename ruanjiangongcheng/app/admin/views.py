@@ -13,6 +13,16 @@ def secret():
     return u'没登录不准看！'
 
 
+@admin.route('/teacherList', methods=['GET', 'POST'])
+@login_required
+def teacherList():
+    if current_user.role != 2:
+        flash(u'这是管理员的功能，你走错啦')
+        return redirect(url_for('main.index'))
+    teacherList = Student.query.filter_by(role=1).all()
+    return render_template('teacherList.html', teacherList=teacherList)
+
+
 @admin.route('/createTeacher', methods=['GET', 'POST'])
 def createTeacher():
     form = CreateTeacher()

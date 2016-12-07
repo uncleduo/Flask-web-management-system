@@ -6,6 +6,15 @@ from . import login_manager
 from datetime import datetime
 
 
+class GroupDoc(db.Model):
+    __tablename__ = 'groupDoc'
+    docID = db.Column(db.Integer, primary_key=True)
+    groupID = db.Column(db.Integer)
+    file_name = db.Column(db.String(255))
+    doc_name = db.Column(db.String(255))
+    upload_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+
 class ClassDoc(db.Model):
     __tablename__ = 'classDoc'
     docID = db.Column(db.Integer, primary_key=True)
@@ -54,6 +63,7 @@ class Student(UserMixin,db.Model):
     groupID = db.Column(db.Integer)
     absent_count = db.Column(db.Integer, default=0)
     late_count = db.Column(db.Integer, default=0)
+    group_state = db.Column(db.Integer)
     notices = db.relationship('Notice', backref='student', lazy='dynamic')
 
     def ping(self):

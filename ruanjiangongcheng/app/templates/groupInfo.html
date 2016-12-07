@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}我的信息{% endblock %}
+{% block title %}小组信息{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -52,32 +52,33 @@
             </h4>
         </td>
         <td>
-
             {% if student.id==group.group_leader %}
             <h4 style="color:#337AB7">组长</h4>
+            {% elif student.group_state == -1 %}
+            <h4 style="color:#DC143C">待定成员</h4>
             {% else %}
             <h4>组员</h4>
             {% endif %}
         </td>
         <td>
-            {% if current_user.role %}
-            <a class="btn btn-primary" href="{{ url_for('student.studentInfo', id=student.id) }}">查看详细信息</a>
-            {% else %}
-            {% if current_user.groupID %}
-            <a class="btn btn-primary" href="{{ url_for('student.studentInfo', id=student.id) }}">查看详细信息</a>
+            {% if current_user.id == leader and student.group_state == -1 %}
+            <a class="btn btn-info" href="{{ url_for('group.allowJoinGroup', id=student.id) }}">通过</a>
+            <a class="btn btn-danger" href="{{ url_for('group.refuseJoinGroup', id=student.id) }}">拒绝</a>
             {% else %}
             <a class="btn btn-primary" href="{{ url_for('student.studentInfo', id=student.id) }}">查看详细信息</a>
-            {% endif %}
             {% endif %}
         </td>
     </tr>
     {% endfor %}
     </table>
     <br><br><br>
-
-    {% if current_user.id == group.teacherID %}
-    <a class="btn btn-primary btn-lg" disabled="disabled" href="{{ url_for('main.onCoding') }}" style="margin:0px 10px 0px 0px;">
+    {% if current_user.id == leader %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('group.uploadGroupFile') }}" style="margin:0px 10px 0px 0px;">
+        上传文档</a>
+    {% endif %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('group.showGroupDoc',groupID=groupID) }}" style="margin:0px 10px 0px 0px;">
         查看该组文档</a>
+    {% if current_user.id == group.teacherID %}
     {% else %}
         {% if current_user.groupID %}
         {% else %}
@@ -87,6 +88,7 @@
         <h3>或者你不认识他们，你可以</h3>
         {% endif %}
     {% endif %}
+
     <a class="btn btn-default btn-lg" href="{{ url_for('group.groupList',teacherID=group.teacherID) }}" style="margin:0px 10px 0px 0px;">
         返回小组列表</a>
 </div>

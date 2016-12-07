@@ -1,20 +1,25 @@
 # -*- coding:utf-8 -*-
-from flask import render_template, redirect, request, url_for, flash, abort
+from flask import render_template, redirect, request, url_for, flash, abort, send_from_directory
 from flask_login import login_user, login_required, logout_user, current_user
+from werkzeug.utils import secure_filename
 from . import student
 from ..models import Student, Notice, Group, ClassDoc
 from .forms import LoginForm, RegistrationForm, EditInfoForm, ScoreForm, ChangePasswordForm
-from app import db
+from app import db, config
+import os, time
+
 
 @student.route('/secret')
 @login_required
 def secret():
     return u'没登录不准看！'
 
+
 @student.before_app_request
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
+
 
 @student.route('/showDoc', methods=('GET', 'POST'))
 @login_required

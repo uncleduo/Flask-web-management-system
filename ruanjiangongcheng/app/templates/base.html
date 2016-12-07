@@ -21,11 +21,11 @@
         <div class="navbar-collapse collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
-                    {% if current_user.role %}
+                    {% if current_user.role == 1 %}
                     <li>
                         <a href="{{ url_for('teacher.teacherInfo', id=current_user.id) }}">我的信息</a>
                     </li>
-                    {% else %}
+                    {% elif current_user.role == 0 %}
                         {% if current_user.groupID %}
                         <li>
                             <a href="{{ url_for('group.groupInfo', groupID=current_user.groupID) }}">我的小组</a>

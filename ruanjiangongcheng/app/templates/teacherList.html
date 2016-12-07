@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}教师列表{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+        <h1>教师列表</h1>
+</div>
+<div>
+    <div style="height:2px"></div>
+    <table class="table table-striped table-condensed table-hover">
+    <thead>
+    <tr>
+        <th><h3>教师姓名</h3></th>
+        <th><h3>手机号码</h3></th>
+        <th><h3>查看教师</h3></th>
+    </tr>
+    </thead>
+
+    <tbody></tbody>
+    {% for teacher in teacherList %}
+    <tr>
+        <td>
+            <h4>
+            {% if teacher.name %}
+            {{ teacher.name }}
+            {% else %}
+            老师还未填写
+            {% endif %}
+            </h4>
+        </td>
+        <td>
+            <h4>
+            {% if teacher.telephone %}
+            {{ teacher.telephone }}
+            {% else %}
+            老师还未填写
+            {% endif %}
+            </h4>
+        </td>
+        <td>
+        <a class="btn btn-primary" href="{{ url_for('teacher.teacherInfo', id=teacher.id) }}">查看详细信息</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+    <br><br><br>
+    <a class="btn btn-default btn-lg" href="{{ url_for('main.index') }}" style="margin:0px 10px 0px 0px;">
+        返回主页
+    </a>
+</div>
+
+
+{% endblock %}
