@@ -63,6 +63,7 @@ def uploadGroupFile():
         except:
             db.session.rollback()
             return "fail", 500
+        db.session.commit()
         flash(u'上传成功')
     return redirect(url_for('group.groupInfo', groupID=current_user.groupID))
 
@@ -93,6 +94,7 @@ def createGroup():
         db.session.add(group)
         student_now.groupID = Group.query.filter_by(group_leader=current_user.id).first().groupID
         db.session.add(student_now)
+        db.session.commit()
         flash(u'小组创建完成')
         return redirect(url_for('main.index'))
     return render_template('createGroup.html', form=form)
@@ -107,6 +109,7 @@ def refuseJoinGroup(id):
         return redirect(url_for('group.groupInfo', groupID=current_user.groupID))
     student.groupID = None
     db.session.add(student)
+    db.session.commit()
     flash(u'已经拒绝')
     return redirect(url_for('group.groupInfo', groupID=current_user.groupID))
 
@@ -120,6 +123,7 @@ def allowJoinGroup(id):
         return redirect(url_for('group.groupInfo', groupID=current_user.groupID))
     student.group_state = 1
     db.session.add(student)
+    db.session.commit()
     flash(u'已经通过')
     return redirect(url_for('group.groupInfo', groupID=current_user.groupID))
 
@@ -134,6 +138,7 @@ def joinGroup(groupID):
     student_now.groupID = groupID
     student_now.group_state = -1
     db.session.add(student_now)
+    db.session.commit()
     flash(u'您已经加入小组')
     return redirect(url_for('main.index'))
 

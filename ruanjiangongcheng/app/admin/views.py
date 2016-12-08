@@ -22,6 +22,7 @@ def deleteUser(id):
         flash(u'你没有权限')
         return redirect('main.index')
     db.session.delete(user)
+    db.session.commit()
     flash(u'用户已经删除')
     if current_user.id == user.teacherID:
         return redirect('teacher.myStudent')
@@ -61,6 +62,7 @@ def createTeacher():
                        password=form.password.data,
                        role = 1)
         db.session.add(user)
+        db.session.commit()
         flash(u'老师账号已经创建')
         return redirect(url_for('main.index'))
     return render_template('createTeacher.html', form=form)

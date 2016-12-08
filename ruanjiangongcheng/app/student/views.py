@@ -36,6 +36,7 @@ def changePassword():
         if student is not None and student.verify_password(form.old_password.data):
             student.password = form.new_password.data
             db.session.add(student)
+            db.session.commit()
             return redirect(request.args.get('next') or url_for('main.index'))
         flash(u'旧密码不对')
     return render_template('changePassword.html', form=form)
@@ -52,6 +53,7 @@ def group_score(id):
         if form.validate_on_submit():
             student.group_score = form.group_score.data
             db.session.add(student)
+            db.session.commit()
             return redirect(url_for('student.studentInfo', id=student.id))
     else:
         flash(u'不是组长不要乱打分哦')
@@ -78,6 +80,7 @@ def edit_info():
         current_user.info = form.info.data
         current_user.email = form.email.data
         db.session.add(current_user)
+        db.session.commit()
         flash(u'你的信息已经更新')
         return redirect(url_for('.studentInfo', id=current_user.id))
     form.name.data = current_user.name
@@ -100,6 +103,7 @@ def addTeacher(teacherID):
         return redirect(url_for('main.index'))
     student_now.teacherID = teacherID
     db.session.add(student_now)
+    db.session.commit()
     flash(u'您已经选择老师')
     return redirect(url_for('main.index'))
 
@@ -147,6 +151,7 @@ def register():
                        studentID=form.studentID.data,
                        password=form.password.data)
         db.session.add(user)
+        db.session.commit()
         flash(u'你可以登录了')
         return redirect(url_for('student.login'))
     return render_template('register.html', form=form)

@@ -88,6 +88,7 @@ def uploadFile():
         except:
             db.session.rollback()
             return "fail", 500
+        db.session.commit()
         flash(u'上传成功')
     return redirect(url_for('teacher.docManage'))
 
@@ -109,6 +110,7 @@ def delete(id):
     if student.teacherID == current_user.id:
         name = str(student.name)
         db.session.delete(student)
+        db.session.commit()
         flash(u'已经删除学生'+name)
         return redirect(url_for('teacher.myStudent'))
     else:
@@ -130,6 +132,7 @@ def isLate(id):
             student.absent_count -=1
             student.late_count +=1
             db.session.add(student)
+            db.session.commit()
         return redirect(url_for('.attendance'))
     else:
         flash(u'乖，不是老师不要乱给别人加未到哦')
@@ -143,6 +146,7 @@ def addAbsent(id):
     if student.teacherID == current_user.id:
         student.absent_count += 1
         db.session.add(student)
+        db.session.commit()
         return redirect(url_for('.attendance'))
     else:
         flash(u'乖，不是老师不要乱给别人加未到哦')
@@ -153,6 +157,7 @@ def deleteNotice(id):
     notice = Notice.query.filter_by(id=id).first()
     if notice.teacherID == current_user.id:
         db.session.delete(notice)
+        db.session.commit()
         flash(u'已经删除该通知')
         return redirect(url_for('.createNotice'))
     else:
@@ -170,6 +175,7 @@ def edit_score(id):
             student.regular_score = form.regular_score.data
             student.final_score = form.final_score.data
             db.session.add(student)
+            db.session.commit()
             return redirect(url_for('student.studentInfo', id=student.id))
     else:
         flash(u'不是老师不要乱打分哦')
@@ -189,6 +195,7 @@ def createNotice():
         notice = Notice(body=form.body.data,
                             teacherID=current_user.id)
         db.session.add(notice)
+        db.session.commit()
         return redirect(url_for('teacher.createNotice'))
     notices = Notice.query.filter_by(teacherID=current_user.id).order_by(Notice.timestamp.desc()).all()
     return render_template('createNotice.html', form=form, notices=notices)
@@ -205,6 +212,7 @@ def edit_info():
         current_user.info = form.info.data
         current_user.email = form.email.data
         db.session.add(current_user)
+        db.session.commit()
         flash(u'你的信息已经更新')
         return redirect(url_for('.teacherInfo', id=current_user.id))
     form.name.data = current_user.name
