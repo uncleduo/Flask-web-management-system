@@ -8,7 +8,7 @@ from ..models import Student
 class EditInfoForm(Form):
     name = StringField(u'姓名', validators=[Length(0,64)])
     major = StringField(u'科研方向', validators=[Length(0,255)])
-    email = StringField(u'邮箱', validators=[Length(0,255)])
+    email = StringField(u'邮箱', validators=[Length(0,255), Regexp('^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$', 0, u'邮箱格式错误')])
     telephone = StringField(u'手机or电话', validators=[Length(0,20)])
     info = StringField(u'教师信息', validators=[Length(0, 255)])
     submit = SubmitField(u'提交')

@@ -31,7 +31,6 @@ class RegistrationForm(Form):
     password2 = PasswordField(u'确认密码', validators=[Required()])
     submit = SubmitField(u'注册')
 
-
     def validate_username(self, field):
         if Student.query.filter_by(username=field.data).first():
             raise ValidationError(u'用户名已经被占用啦')
@@ -43,7 +42,7 @@ class RegistrationForm(Form):
 class EditInfoForm(Form):
     name = StringField(u'姓名', validators=[Length(0,64)])
     major = StringField(u'班级', validators=[Length(0,255)])
-    email = StringField(u'邮箱', validators=[Length(0,255)])
+    email = StringField(u'邮箱', validators=[Length(0,255), Regexp('^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$', 0, u'邮箱格式错误')])
     telephone = StringField(u'手机or电话', validators=[Length(0,20)])
     info = StringField(u'个人信息', validators=[Length(0, 255)])
     submit = SubmitField(u'提交')
