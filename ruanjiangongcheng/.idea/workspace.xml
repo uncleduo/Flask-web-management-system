@@ -31,19 +31,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/templates/index.html">
+      <file leaf-file-name="groupInfo.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/templates/groupInfo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="85" column="14" selection-start-line="85" selection-start-column="14" selection-end-line="85" selection-end-column="14" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#6;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#7;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#8;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h3#3;n#div#2;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="297">
+              <caret line="83" column="38" selection-start-line="83" selection-start-column="38" selection-end-line="83" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -105,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/teacher/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="243">
@@ -193,7 +186,6 @@
         <option value="$PROJECT_DIR$/app/student/forms.py" />
         <option value="$PROJECT_DIR$/app/templates/studentList.html" />
         <option value="$PROJECT_DIR$/app/templates/teacherInfo.html" />
-        <option value="$PROJECT_DIR$/app/templates/groupInfo.html" />
         <option value="$PROJECT_DIR$/app/templates/generateExcel.html" />
         <option value="$PROJECT_DIR$/app/templates/studentInfo.html" />
         <option value="$PROJECT_DIR$/app/templates/index.html" />
@@ -203,6 +195,7 @@
         <option value="$PROJECT_DIR$/app/group/views.py" />
         <option value="$PROJECT_DIR$/app/student/views.py" />
         <option value="$PROJECT_DIR$/app/teacher/views.py" />
+        <option value="$PROJECT_DIR$/app/templates/groupInfo.html" />
       </list>
     </option>
   </component>
@@ -916,18 +909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/groupInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2378">
-          <caret line="82" column="61" selection-start-line="82" selection-start-column="61" selection-end-line="82" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#h4#0;n#td#3;n#tr#0;n#table#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#h4#1;n#td#3;n#tr#0;n#table#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#3;n#div#1;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/studentList.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="754">
@@ -1089,6 +1070,14 @@
           <folding>
             <element signature="e#23#129#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/groupInfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="83" column="38" selection-start-line="83" selection-start-column="38" selection-end-line="83" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
