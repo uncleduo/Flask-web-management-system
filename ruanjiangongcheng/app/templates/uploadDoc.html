@@ -8,8 +8,9 @@
         <h1>上传课程文档</h1></div>
     <div>
         <form action="uploadFile" method="post" enctype="multipart/form-data">
-        <input type="text" name="info" value="请输入文件名" onfocus="this.value=''" onblur="if(this.value==''){this.value='请输入文件名'}" >
-        <input type="file" name="file" accept="application/zip,application/rar"/><br/>
+        <input type="text" name="info" placeholder="请输入文件描述">
+        <div style="height:20px"></div>
+            <input type="file" name="file" accept="application/zip,application/rar"/><br/>
             <h4>请上传zip或rar压缩包</h4>
         <input type="submit" value="确认上传" class="btn btn-primary btn-lg" style="margin:10px 30px 20px 0px;"/>
         </form>
