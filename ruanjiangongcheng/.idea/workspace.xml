@@ -31,7 +31,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="groupInfo.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="groupInfo.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/groupInfo.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="297">
@@ -44,8 +44,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/student/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="153" column="27" selection-start-line="153" selection-start-column="27" selection-end-line="153" selection-end-column="27" />
+            <state relative-caret-position="330">
+              <caret line="50" column="12" selection-start-line="50" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding>
                 <element signature="e#23#119#0" expanded="true" />
               </folding>
@@ -63,7 +63,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="studentInfo.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="studentInfo.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/templates/studentInfo.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="203">
@@ -185,12 +185,12 @@
         <option value="$PROJECT_DIR$/app/templates/uploadGroupDoc.html" />
         <option value="$PROJECT_DIR$/app/admin/views.py" />
         <option value="$PROJECT_DIR$/app/group/views.py" />
-        <option value="$PROJECT_DIR$/app/student/views.py" />
         <option value="$PROJECT_DIR$/app/teacher/views.py" />
-        <option value="$PROJECT_DIR$/app/templates/groupInfo.html" />
         <option value="$PROJECT_DIR$/app/student/forms.py" />
         <option value="$PROJECT_DIR$/app/teacher/forms.py" />
         <option value="$PROJECT_DIR$/app/templates/studentInfo.html" />
+        <option value="$PROJECT_DIR$/app/student/views.py" />
+        <option value="$PROJECT_DIR$/app/templates/groupInfo.html" />
       </list>
     </option>
   </component>
@@ -1025,24 +1025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/groupInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="83" column="38" selection-start-line="83" selection-start-column="38" selection-end-line="83" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/student/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="153" column="27" selection-start-line="153" selection-start-column="27" selection-end-line="153" selection-end-column="27" />
-          <folding>
-            <element signature="e#23#119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/student/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -1071,6 +1053,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="61" column="14" selection-start-line="61" selection-start-column="14" selection-end-line="61" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/student/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding>
+            <element signature="e#23#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/groupInfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="83" column="38" selection-start-line="83" selection-start-column="38" selection-end-line="83" selection-end-column="38" />
           <folding />
         </state>
       </provider>

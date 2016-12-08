@@ -48,7 +48,6 @@ def group_score(id):
     student = Student.query.filter_by(id=id).first()
     groupID = student.groupID
     group_leader = Group.query.filter_by(groupID=groupID).first().group_leader
-
     if current_user.id==group_leader:
         if form.validate_on_submit():
             student.group_score = form.group_score.data
