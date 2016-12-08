@@ -57,9 +57,9 @@
         <h3>小组成绩尚未打分</h3>
     {% endif %}
     {% if user.final_score %}
-        <h3>期末成绩:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.final_score }}分</h3>
+        <h3>最终成绩:&nbsp;&nbsp;&nbsp;&nbsp;{{ user.final_score }}分</h3>
     {% else %}
-        <h3>期末成绩尚未打分</h3>
+        <h3>最终成绩尚未打分</h3>
     {% endif %}
     {% if user.member_since %}
         <h3>注册时间:&nbsp;&nbsp;&nbsp;&nbsp;{{ moment(user.member_since).format('LLL') }}</h3>
