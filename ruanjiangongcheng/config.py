@@ -20,16 +20,16 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = "mysql://%s:%s@%s:%s/%s" % \
-                              ('root', 'yiduodecloud', '127.0.0.1', '3306', 'ruanjiangongcheng')
+                              ('root', 'yourpassword', '127.0.0.1', '3306', 'yourDBname')
 
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = "mysql://%s:%s@%s:%s/%s" % \
-                              ('root', 'yiduodecloud', '127.0.0.1', '3306', 'ruanjiangongcheng')
+                              ('root', 'yourpassword', '127.0.0.1', '3306', 'yourDBname')
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = "mysql://%s:%s@%s:%s/%s" % \
-                              ('root', 'yiduodecloud', '127.0.0.1', '3306', 'ruanjiangongcheng')
+                              ('root', 'yourpassword', '127.0.0.1', '3306', 'yourDBname')
 
 
 WTF_CSRF_ENABLED = False
